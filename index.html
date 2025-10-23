@@ -1,0 +1,21 @@
+<body>
+  <header>
+    <h1>💰 Control de Gastos</h1>
+    <h2>Saldo: <span id="saldoTotal">0.00</span> S/</h2>
+  </header>
+
+  <section id="formulario">
+    <input id="descripcion" type="text" placeholder="Descripción" />
+    <input id="monto" type="number" placeholder="Monto" />
+    <select id="tipo">
+      <option value="ingreso">Ingreso</option>
+      <option value="gasto">Gasto</option>
+    </select>
+    <button id="btnAgregar">Agregar</button>
+  </section>
+
+  <section id="historial">
+    <h3>Historial de movimientos</h3>
+    <ul id="listaMovimientos"></ul>
+  </section>
+</body>
