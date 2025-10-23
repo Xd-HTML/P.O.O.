@@ -40,3 +40,12 @@ function actualizarUI() {
 
   saldoElement.textContent = saldo.toFixed(2);
 }
+
+
+import { db } from "./firebase/config.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+async function guardarEnFirebase(movimiento) {
+  await addDoc(collection(db, "movimientos"), movimiento);
+}
+
