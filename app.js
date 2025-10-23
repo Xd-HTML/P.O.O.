@@ -28,7 +28,7 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
 // Actualizar pantalla
 function actualizarUI() {
   listaElement.innerHTML = "";
-  let saldo = 0;
+  let saldo = 100;
 
   listaMovimientos.forEach((mov) => {
     const li = document.createElement("li");
