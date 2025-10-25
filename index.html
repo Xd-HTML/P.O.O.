@@ -1,21 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBudget - Control de Gastos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
   <header>
-    <h1>💰 Control de Gastos</h1>
-    <h2>Saldo: <span id="saldoTotal">0.00</span> S/</h2>
+    <h1>💸 SmartBudget</h1>
+    <p>Tu asistente de finanzas personales</p>
   </header>
 
-  <section id="formulario">
-    <input id="descripcion" type="text" placeholder="Descripción" />
-    <input id="monto" type="number" placeholder="Monto" />
-    <select id="tipo">
-      <option value="ingreso">Ingreso</option>
-      <option value="gasto">Gasto</option>
-    </select>
-    <button id="btnAgregar">Agregar</button>
-  </section>
+  <main>
+    <!-- Sección de saldo -->
+    <section id="resumen">
+      <h2>Saldo actual: <span id="saldo">S/ 0.00</span></h2>
+    </section>
 
-  <section id="historial">
-    <h3>Historial de movimientos</h3>
-    <ul id="listaMovimientos"></ul>
-  </section>
+    <!-- Formulario para agregar movimientos -->
+    <section id="formulario">
+      <h3>Agregar Movimiento</h3>
+      <input type="text" id="descripcion" placeholder="Descripción" />
+      <input type="number" id="monto" placeholder="Monto" />
+      <select id="tipo">
+        <option value="ingreso">Ingreso</option>
+        <option value="gasto">Gasto</option>
+      </select>
+      <button id="btnAgregar">Agregar</button>
+    </section>
+
+    <!-- Historial -->
+    <section id="historial">
+      <h3>Historial</h3>
+      <ul id="listaMovimientos"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Desarrollado por <strong>Gustavo Tello</strong> | Proyecto POO JS</p>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
+</html>
