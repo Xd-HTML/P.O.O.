@@ -1,4 +1,5 @@
-// Clase para los movimientos
+// === app.js ===
+// Clase principal para cada movimiento
 class Movimiento {
   constructor(descripcion, monto, tipo) {
     this.descripcion = descripcion;
@@ -8,44 +9,53 @@ class Movimiento {
   }
 }
 
-const listaMovimientos = [];
-const listaElement = document.getElementById("listaMovimientos");
-const saldoElement = document.getElementById("saldoTotal");
+// Clase controladora del presupuesto
+class SmartBudget {
+  constructor() {
+    this.movimientos = [];
+  }
 
-// Agregar movimiento
-document.getElementById("btnAgregar").addEventListener("click", () => {
+  agregarMovimiento(mov) {
+    this.movimientos.push(mov);
+    this.actualizarUI();
+  }
+
+  calcularSaldo() {
+    return this.movimientos.reduce((acc, mov) => {
+      return mov.tipo === "ingreso" ? acc + mov.monto : acc - mov.monto;
+    }, 0);
+  }
+
+  actualizarUI() {
+    const lista = document.getElementById("listaMovimientos");
+    const saldoEl = document.getElementById("saldo");
+    lista.innerHTML = "";
+
+    this.movimientos.forEach((mov) => {
+      const li = document.createElement("li");
+      li.textContent = `${mov.fecha} - ${mov.descripcion}: S/ ${mov.monto} (${mov.tipo})`;
+      lista.appendChild(li);
+    });
+
+    saldoEl.textContent = `S/ ${this.calcularSaldo().toFixed(2)}`;
+  }
+}
+
+// Instancia principal
+const app = new SmartBudget();
+
+// Botón
+const btn = document.getElementById("btnAgregar");
+btn.addEventListener("click", () => {
   const desc = document.getElementById("descripcion").value;
   const monto = document.getElementById("monto").value;
   const tipo = document.getElementById("tipo").value;
 
   if (desc && monto) {
-    const nuevoMovimiento = new Movimiento(desc, monto, tipo);
-    listaMovimientos.push(nuevoMovimiento);
-    actualizarUI();
+    const nuevo = new Movimiento(desc, monto, tipo);
+    app.agregarMovimiento(nuevo);
+
+    document.getElementById("descripcion").value = "";
+    document.getElementById("monto").value = "";
   }
 });
-
-// Actualizar pantalla
-function actualizarUI() {
-  listaElement.innerHTML = "";
-  let saldo = 100;
-
-  listaMovimientos.forEach((mov) => {
-    const li = document.createElement("li");
-    li.textContent = `${mov.fecha} - ${mov.descripcion}: S/ ${mov.monto}`;
-    listaElement.appendChild(li);
-
-    saldo += mov.tipo === "ingreso" ? mov.monto : -mov.monto;
-  });
-
-  saldoElement.textContent = saldo.toFixed(2);
-}
-
-
-import { db } from "./firebase/config.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-async function guardarEnFirebase(movimiento) {
-  await addDoc(collection(db, "movimientos"), movimiento);
-}
-
