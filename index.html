@@ -1,46 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartBudget - Control de Gastos</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<title>TTS Online Básico</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 500px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+textarea, button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>💸 SmartBudget</h1>
-    <p>Tu asistente de finanzas personales</p>
-  </header>
 
-  <main>
-    <!-- Sección de saldo -->
-    <section id="resumen">
-      <h2>Saldo actual: <span id="saldo">S/ 1000.00</span></h2>
-    </section>
+<div class="container">
+    <h2>Texto a Voz (Online)</h2>
 
-    <!-- Formulario para agregar movimientos -->
-    <section id="formulario">
-      <h3>Agregar Movimiento</h3>
-      <input type="text" id="descripcion" placeholder="Descripción" />
-      <input type="number" id="monto" placeholder="Monto" />
-      <select id="tipo">
-        <option value="ingreso">Ingreso</option>
-        <option value="gasto">Gasto</option>
-      </select>
-      <button id="btnAgregar">Agregar</button>
-    </section>
+    <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
-    <!-- Historial -->
-    <section id="historial">
-      <h3>Historial</h3>
-      <ul id="listaMovimientos"></ul>
-    </section>
-  </main>
+    <button onclick="generar()">🎧 Generar Audio</button>
 
-  <footer>
-    <p>Desarrollado por <strong>Gustavo Tello</strong> | Proyecto POO JS</p>
-  </footer>
+    <audio id="audio" controls style="margin-top:10px; width:100%;"></audio>
+</div>
 
-  <script src="app.js"></script>
+<script>
+async function generar() {
+    let texto = document.getElementById("texto").value;
+
+    let url = "https://api.streamelements.com/kappa/v2/speech?voice=es-ES-AlvaroNeural&text=" + encodeURIComponent(texto);
+
+    let audio = document.getElementById("audio");
+    audio.src = url;
+
+    // descarga automática
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "audio.mp3";
+    a.click();
+}
+</script>
+
 </body>
 </html>
