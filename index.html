@@ -44,7 +44,7 @@ button {
 
     <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
-    <button onclick="generar()">🎧 Generar Audio</button>
+    <button onclick="generar()">🎧 Generar y Reproducir</button>
 
     <audio id="audio" controls style="margin-top:10px; width:100%;"></audio>
 </div>
@@ -53,18 +53,14 @@ button {
 function generar() {
     let texto = document.getElementById("texto").value;
 
-    // API alternativa sin key
     let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=es&q=" 
               + encodeURIComponent(texto);
 
     let audio = document.getElementById("audio");
     audio.src = url;
 
-    // Descargar
-    let a = document.createElement("a");
-    a.href = url;
-    a.download = "audio.mp3";
-    a.click();
+    // Reproducir automáticamente
+    audio.play();
 }
 </script>
 
