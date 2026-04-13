@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>TTS Básico</title>
+<title>TTS Mejorado</title>
 
 <style>
 body {
@@ -40,7 +40,7 @@ button {
 <body>
 
 <div class="container">
-    <h2>Texto a Voz (Online)</h2>
+    <h2>Texto a Voz (Online PRO)</h2>
 
     <textarea id="texto" placeholder="Escribe aquí..."></textarea>
 
@@ -50,17 +50,26 @@ button {
 </div>
 
 <script>
-function generar() {
+async function generar() {
     let texto = document.getElementById("texto").value;
 
     let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=es&q=" 
               + encodeURIComponent(texto);
 
-    let audio = document.getElementById("audio");
-    audio.src = url;
+    try {
+        let respuesta = await fetch(url);
+        let blob = await respuesta.blob();
 
-    // Reproducir automáticamente
-    audio.play();
+        let audioURL = URL.createObjectURL(blob);
+
+        let audio = document.getElementById("audio");
+        audio.src = audioURL;
+        audio.play();
+
+    } catch (error) {
+        alert("Error al generar audio 😢");
+        console.error(error);
+    }
 }
 </script>
 
