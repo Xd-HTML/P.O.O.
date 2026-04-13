@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>TTS Online Básico</title>
+<title>TTS Básico</title>
 
 <style>
 body {
@@ -50,15 +50,17 @@ button {
 </div>
 
 <script>
-async function generar() {
+function generar() {
     let texto = document.getElementById("texto").value;
 
-    let url = "https://api.streamelements.com/kappa/v2/speech?voice=es-ES-AlvaroNeural&text=" + encodeURIComponent(texto);
+    // API alternativa sin key
+    let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=es&q=" 
+              + encodeURIComponent(texto);
 
     let audio = document.getElementById("audio");
     audio.src = url;
 
-    // descarga automática
+    // Descargar
     let a = document.createElement("a");
     a.href = url;
     a.download = "audio.mp3";
